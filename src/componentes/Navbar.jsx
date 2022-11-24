@@ -1,4 +1,6 @@
 import React from "react";
+import CartWidget from './CartWidget';
+
 
 
 const Navbar = () => {
@@ -38,6 +40,8 @@ const Navbar = () => {
               <button className="btn btn-secondary my-2 my-sm-0" type="submit">Buscador</button>
             </form>
           </div>
+          
+            <CartWidget/>
         </div>
       </nav>
     )
