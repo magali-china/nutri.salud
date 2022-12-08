@@ -1,17 +1,26 @@
 import React from 'react';
 import './App.css';
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Navbar from './componentes/Navbar';
 import ItemListContainer from './componentes/ItemListContainer';
+import ItemDetailContainer from './componentes/ItemDetailContainer';
+import Error404 from './componentes/Error404';
+
 
 
 function App() {
   return (
-   <div className="container">
+   <BrowserRouter>
     <Navbar/>
     <br/>
-    <ItemListContainer greeting={"Bienvenidos a Nutri-Salud donde podes encontrar toda la variedad de frutos secos, cereales, legumbre y especias"}/>
+    <Routes>
+      <Route path={"/"} element={<ItemListContainer />}/>
+      <Route path={"/category/:id"} element={<ItemListContainer />}/>
+      <Route path={"/item/:id"} element={<ItemDetailContainer />}/>
+      <Route path={"*"} element={<Error404/>}/>
 
-   </div>
+    </Routes>    
+   </BrowserRouter>
   );
 }
 

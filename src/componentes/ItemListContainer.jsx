@@ -1,17 +1,35 @@
-const ItemListContainer = ({greeting}) => {
+import React, { useEffect, useState} from "react";
+import arrayProductos from "./json/productos.json";
+import ItemCount from "./ItemCount";
+import ItemList from "./ItemList";
+import { useParams } from "react-router-dom";
+
+const ItemListContainer = () => {
+
+        const [items,setItems] = useState([]);
+        const{id} = useParams();
+
+        useEffect(() => {
+            const promesa = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(id ? arrayProductos.filter(item => item.categoria === id) : arrayProductos);
+                }, 2000);
+            });
+             
+            promesa.then((data) => {
+                setItems(data);
+            })
+        }, [id]);
+
 
     return(
-        <>
-        <h1>{greeting}</h1>
+        <div className="container">
+        <ItemList items={items}/>
         <br/>
-        <div className="card text-white bg-dark mb-3" style={{maxWidth: '20rem'}}>
-            <div className="card-header">Producto</div>
-             <div className="card-body">
-                <h4 className="card-title">Frutos Secos</h4>
-                <p className="card-text">Las frutas secas se destacan por sus beneficios para el corazón y sus propiedades antioxidantes. Reducen los niveles de colesterol malo (LDL) y aumenta el bueno (HDL). Aportan proteínas, vitaminas B y E y minerales como hierro, calcio, magnesio, potasio y fósforo. Se recomienda consumirlos con moderación por su elevado aporte calórico.</p>
-            </div>
+        <ItemCount stock={10}/>
         </div>
-        </>
+       
+    
       
     );
   }
